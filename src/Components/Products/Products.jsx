@@ -5,9 +5,9 @@ import Product from './Product/Product'
 const products = [
 
     {id:1,name:'shoes',description:'running',price:'5$',image :'https://unsplash.com/photos/164_6wVEHfI'},
-    {id:2,name:'parfums',description:'wood',price:'5$'},
-    {id:3,name:'jackets',description:'winter',price:'5$'},
-    {id:4,name:'jeans',description:'straight',price:'5$'},
+    {id:2,name:'parfums',description:'wood',price:'5$',image :'https://unsplash.com/photos/164_6wVEHfI'},
+    {id:3,name:'jackets',description:'winter',price:'5$',image :'https://unsplash.com/photos/164_6wVEHfI'},
+    {id:4,name:'jeans',description:'straight',price:'5$',image :'https://unsplash.com/photos/164_6wVEHfI'},
 ]
 
 const Products = ()=>{
