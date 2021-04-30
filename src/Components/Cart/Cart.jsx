@@ -1,20 +1,20 @@
 import React from 'react'
 import {Container,Typography,Button,Grid} from '@material-ui/core'
+import CartItem from './CartItem/CartItem'
+import {Link} from 'react-router-dom'
 import useStyles from './styles'
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart,handleUpdateCartQty,handleRemoveFromCart,handleEmptyCart}) => {
      var isEmpty = true;
      const isLoaded = Object.keys(cart).length;
      if (isLoaded) {
         isEmpty =!cart.line_items.length ;
      }
-
-     
-    console.log(isEmpty)
     const classes = useStyles();
-
     const EmptyCart = ()=>(
-        <Typography variant = "subtitle1">You have no items in your cart,start adding some</Typography>
+        <Typography variant = "subtitle1">You have no items in your cart,
+           <Link  to='/' className ={classes.link}>start adding some</Link>!
+        </Typography>
     );
     const FilledCart = ()=>(
         <>
@@ -22,7 +22,7 @@ const Cart = ({ cart }) => {
           {cart.line_items.map((item)=>(
 
               <Grid item xs ={12} sm ={4} key= {item.id}>
-                  <div>{item.name}</div>
+                  <CartItem item = {item} onUpdateCartQty = {handleUpdateCartQty} onRemoveFromCart = {handleRemoveFromCart}/>
               </Grid>
           )
           )}
@@ -33,10 +33,10 @@ const Cart = ({ cart }) => {
                 subtotal : {cart.subtotal.formatted_with_symbol}
              </Typography>
              <div>
-                 <Button className={classes.emptyButton} size = "large" type = "button" variant = "contained" color = "secondary">
+                 <Button className={classes.emptyButton} size = "large" type = "button" variant = "contained" color = "secondary" onClick = {handleEmptyCart}>
                      empty cart
                  </Button>
-                 <Button className={classes.checkoutButton} size = "large" type = "button" variant = "contained" color = "primary">
+                 <Button component = {Link} to = '/Checkout' className={classes.checkoutButton} size = "large" type = "button" variant = "contained" color = "primary">
                     checkout
                  </Button>
              </div>
@@ -48,7 +48,7 @@ const Cart = ({ cart }) => {
         
         <Container>
             <div className = {classes.toolbar} />
-            <Typography className ={classes.title} variant = "h3">Your shopping cart</Typography>
+            <Typography className ={classes.title} variant = "h3" gutterBottom>Your shopping cart</Typography>
             {isEmpty ?<EmptyCart/>:<FilledCart/>}
         </Container>
     )
