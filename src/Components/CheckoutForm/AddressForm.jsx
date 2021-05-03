@@ -3,9 +3,10 @@ import {MenuItem,InputLabel,Grid,Typography,Button,Select} from '@material-ui/co
 import {useForm,FormProvider } from 'react-hook-form'
 import FormInput from './CustomText'
 import {commerce} from '../../lib/commerce'
+import {Link} from 'react-router-dom'
 
 
-const AddressForm = ({checkOutToken}) => {
+const AddressForm = ({checkOutToken,next}) => {
     const methods = useForm()
 
     const [shippingCountries,setShippingCountries] = useState([])
@@ -57,13 +58,13 @@ const AddressForm = ({checkOutToken}) => {
         <>
             <Typography variant ="h6" gutterBottom>Shipping address</Typography>
             <FormProvider {...methods}>
-               <form onSubmit = "">
+               <form onSubmit = {methods.handleSubmit((data)=>{next({...data,shippingCountry,shippingSubdivision,shippingOption})})}>
                    <Grid container spacing ={3}>
                       <FormInput required name = "firstname" label="First name" />
                       <FormInput required name = "lastname" label="Last name" />
                       <FormInput required name = "adresse1" label="Adresse" />
                       <FormInput required name = "email" label="Email" />
-                      <FormInput required name = "City" label="City" />
+                      <FormInput required name = "city" label="City" />
                       <FormInput required name = "Zip" label="ZIP/Postal code" />
                       <Grid item xs={12} sm ={6}>
                          <InputLabel>Shipping country</InputLabel>
@@ -103,6 +104,12 @@ const AddressForm = ({checkOutToken}) => {
                            </Select>
                       </Grid>
                    </Grid>
+                  <br/>
+                  <div style={{display :'flex', justifyContent:'space-between'}}>
+                      <Button component ={Link} to ='/cart' variant="outlined">back to cart</Button>
+                      <Button type ="submit" variant="contained" color="primary">next</Button>
+
+                  </div> 
                </form>
 
             </FormProvider>
